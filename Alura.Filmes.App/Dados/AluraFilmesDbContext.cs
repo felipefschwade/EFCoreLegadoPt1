@@ -18,5 +18,29 @@ namespace Alura.Filmes.App.Dados
             optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Beavis\Documents\AluraFilmesTst.mdf;Integrated Security=True;Connect Timeout=30");
             base.OnConfiguring(optionsBuilder);
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Ator>()
+                .ToTable("actor");
+
+            modelBuilder.Entity<Ator>()
+                .Property(a => a.Id)
+                .HasColumnName("actor_id");
+
+            modelBuilder.Entity<Ator>()
+                .Property(a => a.PrimeiroNome)
+                .HasColumnType("varchar(45)")
+                .HasColumnName("first_name")
+                .IsRequired();
+
+            modelBuilder.Entity<Ator>()
+               .Property(a => a.UltimoNome)
+               .HasColumnType("varchar(45)")
+               .HasColumnName("last_name")
+               .IsRequired();
+
+            base.OnModelCreating(modelBuilder);     
+        }
     }
 }
