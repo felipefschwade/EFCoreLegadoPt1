@@ -14,10 +14,13 @@ namespace Alura.Filmes.App
             using (var context = new AluraFilmesDbContext())
             {
                 context.LogSQLToConsole();
-                var filmes = context.Filmes.ToList();
-                foreach (var filme in filmes)
+                var filme = context.Filmes
+                    .Include(f => f.Atores)
+                        .ThenInclude(fa => fa.Ator)
+                    .First();
+                foreach (var ator in filme.Atores)
                 {
-                    Console.WriteLine(filme);
+                    Console.WriteLine(ator.Ator.PrimeiroNome + " " + ator.Ator.UltimoNome);
                 }
                 Console.ReadKey();
             } 

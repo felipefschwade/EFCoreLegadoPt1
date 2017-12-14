@@ -14,6 +14,13 @@ namespace Alura.Filmes.App.Negocio
         public string AnoLancamento { get; set; }
         //public int LinguagemId { get; set; }
         //public virtual Linguagem Linguagem { get; set; }
+        public IEnumerable<FilmeAtor> Atores { get; set; }
+
+        internal object Include()
+        {
+            throw new NotImplementedException();
+        }
+
         public short Duracao { get; set; }
         public string Avaliacao { get; set; }
 
