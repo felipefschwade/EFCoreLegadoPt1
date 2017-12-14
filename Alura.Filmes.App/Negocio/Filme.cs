@@ -15,6 +15,7 @@ namespace Alura.Filmes.App.Negocio
         //public int LinguagemId { get; set; }
         //public virtual Linguagem Linguagem { get; set; }
         public IEnumerable<FilmeAtor> Atores { get; set; }
+        public IEnumerable<FilmeCategoria> Categorias { get; set; }
 
         internal object Include()
         {

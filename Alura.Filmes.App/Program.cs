@@ -14,15 +14,19 @@ namespace Alura.Filmes.App
             using (var context = new AluraFilmesDbContext())
             {
                 context.LogSQLToConsole();
-                var filme = context.Filmes
-                    .Include(f => f.Atores)
-                        .ThenInclude(fa => fa.Ator)
-                    .First();
-                foreach (var ator in filme.Atores)
+                var categorias = context.Categorias
+                    .Include(c => c.Filmes)
+                    .ThenInclude(fc => fc.Filme);
+
+                foreach (var c in categorias)
                 {
-                    Console.WriteLine(ator.Ator.PrimeiroNome + " " + ator.Ator.UltimoNome);
+                    Console.WriteLine("");
+                    Console.WriteLine($"Filmes da categoria {c}:");
+                    foreach (var fc in c.Filmes)
+                    {
+                        Console.WriteLine(fc.Filme);
+                    }
                 }
-                Console.ReadKey();
             } 
         }
     }
