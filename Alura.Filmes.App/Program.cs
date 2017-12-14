@@ -1,6 +1,7 @@
 ﻿using Alura.Filmes.App.Dados;
 using Alura.Filmes.App.Extensions;
 using Alura.Filmes.App.Negocio;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -13,11 +14,13 @@ namespace Alura.Filmes.App
             using (var context = new AluraFilmesDbContext())
             {
                 context.LogSQLToConsole();
-                foreach (var ator in context.Atores.ToList())
+                var filmes = context.Filmes.ToList();
+                foreach (var filme in filmes)
                 {
-                    Console.WriteLine($"{ator.Id} {ator.PrimeiroNome} {ator.UltimoNome}");
+                    Console.WriteLine(filme);
                 }
-            }
+                Console.ReadKey();
+            } 
         }
     }
 }

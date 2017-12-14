@@ -11,6 +11,7 @@ namespace Alura.Filmes.App.Dados
     class AluraFilmesDbContext : DbContext
     {
         public DbSet<Ator> Atores { get; set; }
+        public DbSet<Filme> Filmes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -21,30 +22,9 @@ namespace Alura.Filmes.App.Dados
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Ator>()
-                .ToTable("actor");
+            modelBuilder.ApplyConfiguration(new AtorConfiguration());
+            modelBuilder.ApplyConfiguration(new FilmeConfiguration());
 
-            modelBuilder.Entity<Ator>()
-                .Property(a => a.Id)
-                .HasColumnName("actor_id");
-
-            modelBuilder.Entity<Ator>()
-                .Property(a => a.PrimeiroNome)
-                .HasColumnType("varchar(45)")
-                .HasColumnName("first_name")
-                .IsRequired();
-
-            modelBuilder.Entity<Ator>()
-               .Property(a => a.UltimoNome)
-               .HasColumnType("varchar(45)")
-               .HasColumnName("last_name")
-               .IsRequired();
-
-            modelBuilder.Entity<Ator>()
-                .Property<DateTime>("last_update")
-                .HasColumnType("datetime")
-                .HasDefaultValueSql("getdate()")
-                .IsRequired();
 
             base.OnModelCreating(modelBuilder);     
         }
