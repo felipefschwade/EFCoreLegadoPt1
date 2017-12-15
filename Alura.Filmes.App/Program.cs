@@ -14,20 +14,26 @@ namespace Alura.Filmes.App
             using (var context = new AluraFilmesDbContext())
             {
                 context.LogSQLToConsole();
-                var categorias = context.Categorias
-                    .Include(c => c.Filmes)
-                    .ThenInclude(fc => fc.Filme);
+                var idiomas = context.Idiomas
+                    .Include(i => i.FilmesFalados)
+                    .Include(i => i.FilmesOriginais)
+                    .ToList();
 
-                foreach (var c in categorias)
+                foreach (var idioma in idiomas)
                 {
                     Console.WriteLine("");
-                    Console.WriteLine($"Filmes da categoria {c}:");
-                    foreach (var fc in c.Filmes)
+                    Console.WriteLine($"Filmes da categoria {idioma}:");
+                    foreach (var filme in idioma.FilmesFalados)
                     {
-                        Console.WriteLine(fc.Filme);
+                        Console.WriteLine($"Falado {filme}");
+                    }
+                    foreach (var filme in idioma.FilmesOriginais)
+                    {
+                        Console.WriteLine($"Original {filme}");
                     }
                 }
-            } 
+            }
+            Console.ReadKey();
         }
     }
 }

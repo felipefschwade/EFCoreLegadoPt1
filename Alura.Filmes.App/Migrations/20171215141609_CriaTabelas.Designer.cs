@@ -11,9 +11,10 @@ using System;
 namespace Alura.Filmes.App.Migrations
 {
     [DbContext(typeof(AluraFilmesDbContext))]
-    partial class AluraFilmesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171215141609_CriaTabelas")]
+    partial class CriaTabelas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

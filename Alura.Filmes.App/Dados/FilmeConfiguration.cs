@@ -27,12 +27,23 @@ namespace Alura.Filmes.App.Dados
                 .HasColumnType("varchar(255)")
                 .IsRequired();
 
-            //language_id TINYINT NOT NULL,
-            //original_language_id TINYINT DEFAULT NULL,
-            //rating VARCHAR(10) DEFAULT 'G',
-            //last_update DATETIME NOT NULL,
+            builder
+                .Property<byte>("language_id");
 
-           builder
+            builder
+                .Property<byte?>("original_language_id");
+
+            builder
+                .HasOne(f => f.IdiomaFalado)
+                .WithMany(i => i.FilmesFalados)
+                .HasForeignKey("language_id");
+
+            builder
+                .HasOne(f => f.IdiomaOriginal)
+                .WithMany(i => i.FilmesOriginais)
+                .HasForeignKey("original_language_id");
+
+            builder
                 .Property(f => f.Descricao)
                 .HasColumnName("description")
                 .HasColumnType("text");
